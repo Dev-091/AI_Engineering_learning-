@@ -17,6 +17,14 @@ def llm_ans(prompt):
     "content" : prompt
     }
     messages=[message]
-    response=client.chat.completions.create(model = "llama-3.3-70b-versatile", messages=messages)
+    response=client.chat.completions.create(model = "openai/gpt-oss-20b", messages=messages)
     answer=response.choices[0].message.content
     return answer
+
+bad_prompt = """
+THis is a user complaint:
+My laptop is not working properly.
+Handle the complaint.
+"""
+
+print(llm_ans(bad_prompt))
