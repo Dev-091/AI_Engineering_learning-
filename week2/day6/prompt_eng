@@ -21,10 +21,33 @@ def llm_ans(prompt):
     answer=response.choices[0].message.content
     return answer
 
+user_complaint = input("Enter the user complaint: ")
+
 bad_prompt = """
 THis is a user complaint:
 My laptop is not working properly.
 Handle the complaint.
 """
-
-print(llm_ans(bad_prompt))
+good_prompt = """
+#Role:
+you are a customer support agent at a mobile/laptop company.
+#Task:
+You have to classify the issue in a category and provide a solution to the user complaint.
+#Constraints:
+You have to classify the issue in one of the following categories: billing issue , technical issue, delivery issue, product issue, return issue, warranty issue, other issue.
+#Output format:
+Your output should be in the following format:
+Category: <category>
+Solution: <solution>
+#Example:
+User complaint: My laptop is not working properly.
+category: technical issue
+Solution: Please try restarting your laptop and checking for any software updates. If the issue persists, please contact our technical support team for further assistance.
+user complaint: i am happy/not good/ with product.
+category: refund issue
+solution: contiune with the refund process
+#Fallback:
+If you are unable to classify the issue, please respond with "Unable to classify the issue. Please provide more details."
+This is a user complaint: {user_complaint}
+"""
+print(llm_ans(good_prompt))
