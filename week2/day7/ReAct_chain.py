@@ -11,7 +11,7 @@ if not my_api_key:
     raise ValueError("API key kaha hai bhai")
 
 client = Groq(api_key=my_api_key)
-model = "openai/gpt-oss-20b"
+model = "qwen/qwen3.8-27b"
 
 # tools
 def get_product_price(product):
@@ -19,6 +19,8 @@ def get_product_price(product):
         return 1000
     elif product == "iphone 15":
         return 800
+    elif product == "iphone 18":
+        return 1200
     else:
         return 0
 
@@ -88,7 +90,8 @@ def run_agent(question):
         response = client.chat.completions.create(
             model=model,
             messages=messages,
-            temperature=0
+            temperature=0,
+            
         )
 
         answer = response.choices[0].message.content
@@ -124,7 +127,7 @@ def run_agent(question):
         sleep(5)
 
 
-prompt = """I have 5000 rupees. What is the price of an iphone 17?
+prompt = """I have 5000 rupees. What is the price of an iphone 18?
 And how much money will I have left after buying it?
 """
 run_agent(prompt)
